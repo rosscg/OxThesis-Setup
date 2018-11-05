@@ -1,0 +1,134 @@
+
+\chapter{How to Use}\label{ch:use}
+
+%\minitoc            % Building this requires the .toc, so won't build unless \tableofcontents runs.
+
+These instructions will set up Latex with an editor, viewer, git version control and automatic online backup. The latex file will automatically compile when a change is detected, thus streamlining the editing process.
+
+\section{Setup}
+Note: These instructions are for Mac OSX.
+\begin{enumerate}
+  \item Install Latex etc as usual.
+  \item (Optional: editor) Install Atom (or change the second line in runThesis.sh), and within its settings install the packages (the first two are important, the remainder are up to preference):
+  \begin{itemize}
+    \item language-latex
+    \item autocomplete-latex-cite
+    \item autocomplete-paths
+    \item highlight-selected
+    \item Zen
+    \item typewriter
+    \item wordcount
+  \end{itemize}
+  It is also recommended to set the theme to One Dark. \textbf{Settings -> Themes}
+  \item (Optional) Install Skim (pdf viewer). If not installed, remove the first line in the latexmkrc file. Skim allows auto-refreshing when the source file is changed, and CMD-SHIFT-clicking on a word will direct the cursor to that line in Atom. In Skim, set \textbf{Preferences - Sync - Preset = Atom}.
+  \item Move or download this \texttt{OxThesis-Setup} folder to your desktop. Open a terminal window and run the command:\\
+  \texttt{cd \textasciitilde{}/Desktop}
+  \item (Optional: git repository) If desired, this script will automatically commit changes to a git repo and push to an online repository. This is recommended to maintain a versioned, online backup.
+  \begin{itemize}
+    \item To do so, create an account with \url{https://bitbucket.org/} (BitBucket offers private repositories whereas Github does not). Create a repository from their web UI (use default settings, but don't create readme). Once created, it should display a command in the format of:\\
+    \texttt{git clone https://USERNAME@bitbucket.org/USERNAME/REPO-NAME.git}\\
+    In the terminal window, run the command copied from BitBucket. This will create the thesis folder on your desktop.
+    \item Copy the contents of this `OxThesis-Setup' folder into the new folder with the command:\\
+    \texttt{DITTO OxThesis-Setup REPO-NAME}\\
+    \texttt{rm -iR OxThesis-Setup}
+    \item This file has now been deleted. Close this window (without saving) and open the new readme in \texttt{\textasciitilde{}/Desktop/REPO-NAME/Oxford_Thesis.pdf} to continue.
+    \item navigate the terminal window to the new folder with the command: `\texttt{cd REPO-NAME}'.
+    \item Open the \verb|runThesis.sh| file and uncomment the three git lines (remove the preceding hash).
+    \item It is recommended to run the following commands in terminal, with your details:\\
+    \texttt{git config --global user.name "Your Name"}\\
+    \texttt{git config --global user.email you@example.com}
+  \end{itemize}
+  \item Set Mendeley to automatically create a Bibtex file for `whole library' (or group if relevant) at an appropriate directory (i.e. \texttt{/YOUR-MENDELEY-LIBRARY-DIR/\_bibtex}). The setting in the \texttt{Oxford\_Thesis.tex} file currently expects the filename \texttt{library.bib}, which should be the default for Mendeley's output. This should work with other reference managers but these haven't been tested.
+  \item Remove the existing \texttt{./bib} folder. Use Terminal to create a symlink of the Mendeley folder containing your bib file in its place. Run the symlink command in terminal (don't miss the period at the end):\\
+  \texttt{ln -s /YOUR-MENDELEY-LIBRARY-DIR/\_bibtex/ .}\\
+  Drag the \texttt{\_bibtex} folder into the terminal window rather than typing the path to autocomplete. The symlink will be created in the current directory, which should be this folder but if not, check with `\texttt{pwd}' and move the symlink into the thesis folder manually.
+  If using git repository, uncomment the bib line in .gitignore.\\
+  \\
+  Alternatively if using a static bib file, keep the existing bib folder and simply replace the \texttt{library.bib} file. If using git and a static file, don't uncomment the bib line in \texttt{.gitignore}.
+  \item Make the startup script executable with the terminal command: `\texttt{chmod a+x runThesis.sh}'. Create an alias (right-click file - create alias) to this script where needed (e.g., the dock).
+  \item Copy the thesis folder somewhere appropriate if desired.
+  \item (Note:) If the \verb|Oxford_Thesis.tex| file name is changed, you will need to update the name of the \verb|Oxford_Thesis.pdf| filename on lines 4 and 7 in the \texttt{runThesis.sh} file. This script acts as a `auto-run' which will open the folder in Atom and run the compiler in the background. It is set to watch for changes and autoupdate the PDF output, which will update in the Skim view. Lines 4-7 are added to clean the directory once the terminal process is terminated using ctrl-c. Removing these files increases build time so these commands can be removed if preferred.
+\end{enumerate}
+
+\section{Writing}
+\begin{enumerate}
+  \item \textbf{To begin a work session}, open the \verb|runThesis.sh| file (or alias). If it tries to open in an editor by default, right click the file - `Get Info' - `Opens With' and choose Terminal. The script will open a terminal window which will persist. When a change is detected, it will automatically rebuild the pdf file. Once you are done, end the terminal process with the command `CTRL-c'. This will end the process and clean up the directory. It will then push the changes to the online repository is configured, though it may ask for credentials the first time.
+  \item Create a first chapter file as \verb|./text/CHAPTERNAME.tex|. It may be best to copy this \verb|usage.tex| file as a template.
+  \item Edit the \verb|Oxford_Thesis.tex| file. The comments describe customisation options. At least, update the title, author, college, degree and degreedate fields. Under the `Chapters' section (approx line 193), add a line to include your new chapter and remove the line which includes this \verb|usage| file. Add new chapters here as they are created. Comment them out to temporarily prevent compiling (e.g. when working on a single chapter).
+  \item When ready, uncomment other lines in \verb|Oxford_Thesis.tex| as needed (eg, \verb|\maketitle|, acknowledgements etc). The file is commented with explanation.
+  \item If a Word document is needed (e.g. for tracking changes by a supervisor), the most efficient way seems to be to generate the pdf then convert that into a .doc using a web service.
+\end{enumerate}
+
+\section{Formatting}
+See the source file for the commands used to produce the below.
+
+\subsection{Citation}
+Using cite: \cite{Palen2008a} \\
+Using textcite: \textcite{Palen2008a} \\
+Using parencite: \parencite{Palen2008a} \\
+Using autocite: \autocite{Palen2008a} \\
+With page numbers: \autocite[22-33]{Palen2008a} \\
+Using authorcite: \citeauthor{Palen2008a}
+
+\subsection{Labels}
+Mark labels as \verb|\label{ch:use}| and use the naming style here:\\ \url{https://en.wikibooks.org/wiki/LaTeX/Labels_and_Cross-referencing} \\
+Reference as either \ref{ch:use} or \eqref{ch:use}
+
+
+\subsection{Tables}
+Two table examples:
+
+\begin{table}[H] % Choose these parameters, H or h! usually safest
+  \vspace{1cm}
+  \centering
+  \extrarowsep = 1mm
+  \begin{tabu} to .6\linewidth { | X[-2,lm] | X[-1,c]  X[-1,c]  X[-1,c] | }
+    % Use X values to force table to take whole width. Negative values tell column to use up to proportion if needed, positive forces proportion. m and l denote v and h alignments. See documentation http://anorien.csc.warwick.ac.uk/mirrors/CTAN/macros/latex/contrib/tabu/tabu.pdf
+    \cline{2-4}
+    \multicolumn{1}{c|}{} & Item1 & Item2 & Item3 \\
+    \hline
+    Group1 & 0.8   & 0.1   & 0.1  \\
+    Group2 & 0.1   & 0.8   & 0.1  \\
+    Group3 & 0.1   & 0.1   & 0.8  \\
+    \hline
+    Group4 & 0.34  & 0.33  & 0.33 \\
+    \hline
+  \end{tabu}
+  \caption[Table Title as Appears in TOC]{Caption Title Text}
+  \label{tab:table1label}
+\end{table}
+
+\begin{table}[H] % Choose these parameters, H or h! usually safest
+\vspace{1cm}
+  \centering
+  \extrarowsep = 1mm
+  \begin{tabu}{cccc}
+    \toprule
+      & Item1 & Item2 & Item3 \\ \midrule
+    Group1 & 0.8   & 0.1   & 0.1  \\
+    Group2 & 0.1   & 0.8   & 0.1  \\
+    Group3 & 0.1   & 0.1   & 0.8  \\
+    Group4 & 0.34  & 0.33  & 0.33 \\ \bottomrule
+  \end{tabu}
+  \caption[Table Title as Appears in TOC]{Caption Title Text}
+  \label{tab:table2label}
+\end{table}
+
+
+\subsection{Figures}
+
+\begin{figure}[H] % Choose these parameters, H or h! usually safest
+  \vspace{5mm}
+  \centering
+  \includegraphics[width=0.3\textwidth]{figures/beltcrest.pdf}
+  \caption{Application Framework}
+  \label{fig:app-framework}
+\end{figure}
+
+
+\subsection{Formulas}
+Wrap formulas in \$ signs to use inline formulas. Use two \$\$ to create formula on its own line.
+
+e.g.: $N {_\overline{ret}} \cap {_{rel}}$
+
+Create formulas using a web service e.g.: \url{www.hostmath.com/}
