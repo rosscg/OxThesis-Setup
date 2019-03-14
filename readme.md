@@ -1,44 +1,102 @@
-# Setup for Oxford Thesis Template
+# Oxford Thesis Template Suite
 
-These instructions will set up Latex with an editor, viewer, git version control and automatic online backup. The latex file will automatically compile when a change is detected, thus streamlining the editing process.
+Set up Latex with Mendeley integration and automatic online backup. Latex will automatically compile when a change is detected, thus streamlining the editing process.
 
-These instructions are replicated in the output pdf file.
-
-
+-----------------
 ## Setup
-Note: These instructions are for Mac OSX.
 
-- Install Latex etc as usual.
-- (Optional: editor) Install Atom (or change the second line in runThesis.sh), and within its settings install the packages (the first two are important, the remainder are up to preference):
-  - language-latex
-  - autocomplete-latex-cite
-  - autocomplete-paths
-  - highlight-selected
-  - Zen
-  - typewriter
-  - wordcount
-  It is also recommended to set the theme to One Dark. **Settings -> Themes**
-- (Optional) Install Skim (pdf viewer). If not installed, remove the first line in the latexmkrc file. Skim allows auto-refreshing when the source file is changed, and CMD-SHIFT-clicking on a word will direct the cursor to that line in Atom. In Skim, set **Preferences -> Sync -> Preset = Atom**.
-- Move or download this **OxThesis-Setup** folder to your desktop. Open a terminal window and run the command: `cd ~/Desktop`
-- (Optional: git repository) If desired, this script will automatically commit changes to a git repo and push to an online repository. This is recommended to maintain a versioned, online backup.
-   - To do so, create an account with https://bitbucket.org/ (BitBucket offers private repositories whereas Github does not). Create a repository from their web UI (use default settings, but don't create readme). Once created, it should display a command in the format of:
-   `git clone https://USERNAME@bitbucket.org/USERNAME/REPO-NAME.git`
-    In the terminal window, run the command copied from BitBucket. This will create the thesis folder on your desktop.
-   - Copy the contents of this 'OxThesis-Setup' folder into the new folder with the command:
-    `DITTO OxThesis-Setup REPO-NAME`
-    `rm -iR OxThesis-Setup`
-   - This file has now been deleted. Close this window (without saving) and open the new readme in `~/Desktop/REPO-NAME/Oxford_Thesis.pdf` to continue.
-   - navigate the terminal window to the new folder with the command: `cd REPO-NAME`.
-   - Open the `runThesis.sh` file and uncomment the three git lines (remove the preceding hash).
-   - It is recommended to run the following commands in terminal, with your details:
-   - `git config --global user.name "Your Name"`
-   - `git config --global user.email you@example.com`
-- Set Mendeley to automatically create a Bibtex file for 'whole library' (or group if relevant) at an appropriate directory (i.e. `/YOUR-MENDELEY-LIBRARY-DIR/_bibtex`). The setting in the `Oxford_Thesis.tex` file currently expects the filename `library.bib`, which should be the default for Mendeley's output. This should work with other reference managers but these haven't been tested.
-- Remove the existing `./bib` folder. Use Terminal to create a symlink of the Mendeley folder containing your bib file in its place. Run the symlink command in terminal (don't miss the period at the end):
-`ln -s /YOUR-MENDELEY-LIBRARY-DIR/_bibtex/ .`
-Drag the `_bibtex` folder into the terminal window rather than typing the path to autocomplete. The symlink will be created in the current directory, which should be this folder but if not, check with `pwd` and move the symlink into the thesis folder manually.
-If using git repository, uncomment the bib line in `.gitignore`.
- Alternatively if using a static bib file, keep the existing bib folder and simply replace the `library.bib` file. If using git and a static file, don't uncomment the bib line in `.gitignore`.
-- Make the startup script executable with the terminal command: `chmod a+x runThesis.sh`. Create an alias (right-click file -> create alias) to this script where needed (e.g., the dock).
-- Copy the thesis folder somewhere appropriate if desired.
-- (Note:) If the `Oxford_Thesis.tex` file name is changed, you will need to update the name of the `Oxford_Thesis.pdf` filename on lines 4 and 7 in the `runThesis.sh` file. This script acts as a 'auto-run' which will open the folder in Atom and run the compiler in the background. It is set to watch for changes and autoupdate the PDF output, which will update in the Skim view. Lines 4-7 are added to clean the directory once the terminal process is terminated using ctrl-c. Removing these files increases build time so these commands can be removed if preferred.
+### Install Software
+
+- Install [Mendeley](https://www.mendeley.com) (reference manager)
+- Install Latex. Tested with [MacTeX (Mac)](http://www.tug.org/mactex/) and [MiKTeX (Windows)](https://miktex.org/download)
+- Install [Atom](http://atom.io) (text editor)
+  - In Atom, install packages: (Mac: Atom -> Preferences -> Install, Windows: File -> Settings -> Install)
+    - language-latex
+    - autocomplete-latex-cite
+  - Optional Atom packages:
+    - autocomplete-paths
+    - highlight-selected
+    - Zen
+    - typewriter
+    - wordcount or latex-wordcount
+  - It is also recommended to set the theme to One Dark. (Atom/File -> Preferences/Settings -> Themes)
+- Install a pdf viewer. These allow auto-refreshing when the source file is changed.
+  - (Mac) Install [Skim](https://skim-app.sourceforge.io/)
+      - Remove the second line from latexmkrc file.
+      - (Optional) In Skim, CMD-SHIFT-clicking on a word will direct the cursor to that line in Atom. In Skim, set **Preferences -> Sync -> Preset = Atom**.
+  - (Windows) Install pdf viewer [Ghostscript](www.ghostscript.com).
+      - Remove the first line from latexmkrc file.
+  - (Windows) Install [ActiveState Perl](https://www.activestate.com/products/activeperl/downloads/) or Stawberry Perl. (TODO: to verify)
+
+
+### (optional) Backup & Version Control
+
+If desired, this script will automatically commit changes to a git repository and push to an online repository. This is recommended to maintain a versioned, online backup.
+
+- Install [Git](https://git-scm.com/download).
+  - (Windows) During the Git installation, you must choose the setting 'Git from the command line ... ' on the 'Adjusting your PATH environment' section.
+- Create an account with [Github](https://github.com).
+- Create a new private repository on their web UI.
+- Copy this folder into your repository:
+  - (Mac) Open a terminal window and navigate to the desktop: `cd ~/Desktop`
+  - (Windows) Open command prompt and navigate to the desktop: `cd c:\Users\USERNAME\Desktop`
+  - Run the following commands, substituting your Github USERNAME and REPOSITORYNAME where appropriate (you may be prompted for your Github credentials):
+  - `git clone --bare https://github.com/rosscg/OxThesis-Setup.git`
+  - `cd OxThesis-Setup.git`
+  - `git push --mirror https://github.com/USERNAME/REPOSITORYNAME.git`
+  - `cd ..`
+  - (Mac) `rm -rf OxThesis-Setup.git`
+  - (Windows) `rmdir OxThesis-Setup.git /s /q`
+  - `cd REPOSITORYNAME`
+
+- Open the `runThesisMac.sh` or `runThesisWin.bat` file and uncomment the three git lines (remove the preceding hash).
+- It is recommended to run the following commands in terminal/command prompt, with your details:
+  - `git config --global user.name "YOUR NAME"`
+  - `git config --global user.email you@example.com`
+
+### (alternative) No Backup
+
+- If not using Github as described above, simply download this repository by using the 'Clone or download' button, and choosing to download as zip. Unzip to your desktop and navigate to it:
+  - (Mac) Open a terminal window and navigate to the desktop: `cd ~/Desktop/OxThesis-Setup-master`
+  - (Windows) Open command prompt and navigate to the desktop: `cd c:\Users\USERNAME\Desktop\OxThesis-Setup-master`
+
+
+### Mendeley Integration
+
+This should work with other reference managers but these haven't been tested.
+
+- Set Mendeley to automatically create a Bibtex file for 'whole library' (or folder group if relevant) at an appropriate directory (i.e. `/YOUR-MENDELEY-LIBRARY-DIR/_bibtex/`). The filename should be `library.bib`.
+- (Mac) Create a symlink of the Mendeley folder containing your bib file in its place:
+  - `rm -rf bib`
+  - `ln -s /YOUR-MENDELEY-LIBRARY-DIR/_bibtex/ .`
+    - (Drag the `_bibtex` folder into the terminal window rather than typing the path to autocomplete.)
+  - `mv _bibtex bib`
+- (Windows) For symlinks, use mklink. Documentation TBC. In the meantime, simply set Mendeley to output the library.bib into /bib/ directory.
+
+
+### Configuration
+
+- Move the thesis folder somewhere appropriate and rename if desired.
+- Create a shortcut/alias to the runThesisMac.sh or runThesisWin.bat where convenient. You can delete the  file not relevant to your OS.
+- (Mac) Make the startup script executable with the terminal command: `chmod a+x runThesisMac.sh`
+- Edit latexmkrc file: remove the second line if using a Mac, remove the first line if using Windows.
+
+-----------------
+
+## Usage
+Simply run the shortcut to the runThesis file.
+
+This will open a terminal window which opens Atom, builds the pdf file, and displays it in the pdf viewer. Any changes made in Atom will be detected by the terminal window, which will rebuild the pdf file. The pdf viewer should then refresh and show these changes automatically.
+
+To finish a session, close Atom and the pdf viewer. In the terminal/command prompt window, enter the command `ctr-c` (Windows: followed by `N` when asked to terminate batch job).
+This will run a cleanup of the directory, and push the changes to your git repository (if configured).
+
+See the placeholder pdf (section 1.2) for instructions on working in Latex.
+
+-----------------
+
+## Misc Notes
+- If not using Atom, remove or change the second line in runThesis.sh (Mac) or runThesisWin.bat (Windows).
+- If renaming the Oxford_Thesis.tex, the Oxford_Thesis.pdf filename must be updated in the runThesis file to match (though with the pdf extension).
+- (Windows) The GSView pdf viewer must be used. Others cause errors when writing to pdf when the file is open.
+- In cleaning up the files after a session, the .bbl files are removed. These can take some time to rebuild each new session. To prevent this cleaning, remove the line `rm *.bbl;` or `del *.bbl` from the runThesis files.

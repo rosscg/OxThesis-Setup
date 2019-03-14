@@ -38,4 +38,4 @@
 .DS_Store
 
 # Ignore bib symlink
-#bib
+bib
