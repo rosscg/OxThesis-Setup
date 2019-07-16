@@ -22,14 +22,14 @@ Set up Latex with Mendeley integration and automatic online backup. Latex will a
   - It is also recommended to set the theme to One Dark. (Atom/File -> Preferences/Settings -> Themes)
 - Install a pdf viewer. These allow auto-refreshing when the source file is changed.
   - (Mac) Install [Skim](https://skim-app.sourceforge.io/)
-      - Remove the second line from latexmkrc file.
+      - Remove the second line from latexmkrc file (once you download this folder below).
       - (Optional) In Skim, CMD-SHIFT-clicking on a word will direct the cursor to that line in Atom. In Skim, set **Preferences -> Sync -> Preset = Atom**.
   - (Windows) Install pdf viewer [Ghostscript](www.ghostscript.com).
-      - Remove the first line from latexmkrc file.
+      - Remove the first line from latexmkrc file (once you download this folder below).
   - (Windows) Install [ActiveState Perl](https://www.activestate.com/products/activeperl/downloads/) or Strawberry Perl. (TODO: to be tested)
 
 
-### (optional) Backup & Version Control
+### Backup & Version Control
 
 If desired, this script will automatically commit changes to a git repository and push to an online repository. This is recommended to maintain a versioned, online backup.
 
