@@ -42,14 +42,12 @@ If desired, this script will automatically commit changes to a git repository an
   - (Mac) Open a terminal window and navigate to the desktop: `cd ~/Desktop`
   - (Windows) Open command prompt and navigate to the desktop: `cd c:\Users\USERNAME\Desktop`
   - Run the following commands, substituting your Github USERNAME:
-  - `git clone --bare https://github.com/rosscg/OxThesis-Setup.git`
-  - `cd OxThesis-Setup.git`
+  - `git clone --bare https://github.com/rosscg/OxThesis-Setup.git; cd OxThesis-Setup.git`
   - `git push --mirror https://github.com/USERNAME/oxfordthesis.git`
   - `cd ..`
   - (Mac) `rm -rf OxThesis-Setup.git`
   - (Windows) `rmdir OxThesis-Setup.git /s /q`
-  - `cd oxfordthesis`
-- Open the `runThesisMac.sh` or `runThesisWin.bat` file and uncomment the three git lines (remove the preceding hash or colons).
+  - `git clone https://github.com/USERNAME/oxfordthesis.git; cd oxfordthesis`
 - Run the following commands in terminal/command prompt, with your details:
   - `git config --global user.name "YOUR NAME"`
   - `git config --global user.email you@example.com`
@@ -59,6 +57,7 @@ If desired, this script will automatically commit changes to a git repository an
 - If not using Github as described above, simply download this repository by using the 'Clone or download' button, and choosing to download as zip. Unzip to your desktop and navigate to it:
   - (Mac) Open a terminal window and navigate to the desktop: `cd ~/Desktop/OxThesis-Setup-master`
   - (Windows) Open command prompt and navigate to the desktop: `cd c:\Users\USERNAME\Desktop\OxThesis-Setup-master`
+- remove the last three git lines from `runThesisMac.command` or `runThesisWin.bat`.
 
 
 ### Mendeley Integration
@@ -76,11 +75,10 @@ This should work with other reference managers but these haven't been tested.
 
 ### Configuration
 
+- (Mac) Make the startup script executable with the terminal command: `chmod +x runThesisMac.command`
 - Move the thesis folder somewhere appropriate and rename if desired.
-- Create a shortcut/alias to the runThesisMac.sh or runThesisWin.bat where convenient. You can delete the  file not relevant to your OS.
-- (Mac) Make the startup script executable with the terminal command: `chmod a+x runThesisMac.sh`
-- Edit latexmkrc file: remove the second line if using a Mac, remove the first line if using Windows.
-- You may delete this readme.md from your folder.
+- Create a shortcut/alias to the runThesisMac.command or runThesisWin.bat where convenient. You can delete the file not relevant to your OS.
+- Edit latexmkrc file: remove the second line if using a Mac; remove the first line if using Windows.
 
 -----------------
 
@@ -90,7 +88,7 @@ Simply run the shortcut to the runThesis file.
 This will open a terminal window which opens Atom, builds the pdf file, and displays it in the pdf viewer. Any changes made in Atom will be detected by the terminal window, which will rebuild the pdf file. The pdf viewer should then refresh and show these changes automatically.
 
 To finish a session, close Atom and the pdf viewer. In the terminal/command prompt window, enter the command `ctr-c` (Windows: followed by `N` when asked to terminate batch job).
-This will run a cleanup of the directory, and push the changes to your git repository (if configured).
+This will run a cleanup of the directory, and push the changes to your git repository.
 
 -----------------
 

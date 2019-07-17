@@ -6,6 +6,6 @@ latexmk -c;
 rm *.bbl;
 mv temp_export.pdf Oxford_Thesis.pdf;
 
-#git add --all;
-#git commit -m 'auto-commit';
-#git push;
+git add --all;
+git commit -m 'auto-commit';
+git push;

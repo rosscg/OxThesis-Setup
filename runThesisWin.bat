@@ -6,6 +6,6 @@ latexmk -c
 del /f *.bbl
 rename temp_export.pdf Oxford_Thesis.pdf
 
-::git add --all
-::git commit -m 'auto-commit'
-::git push
+git add --all
+git commit -m 'auto-commit'
+git push
