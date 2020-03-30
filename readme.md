@@ -116,3 +116,4 @@ See the placeholder pdf (section 1.2) for instructions on working in Latex. You 
 - (Windows) If running Biber is stalling, open the MiKTeX Console and check for updates to packages. Do this for both user and administrator. This issue has not been completely resolved.
 - (Windows) The GSView pdf viewer must be used. Others cause errors when writing to pdf when the file is open.
 - In cleaning up the files after a session, the .bbl files are removed. These can take some time to rebuild each new session. To prevent this cleaning, remove the line `rm *.bbl;` or `del *.bbl` from the runThesis files.
+- A Word .docx file can be created with the exportToDocx command, however the formatting may be imperfect. This was used to share a Word file with supervisors for change tracking and adding notes for review, not for publication.
