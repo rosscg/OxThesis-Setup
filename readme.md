@@ -7,25 +7,24 @@ Set up Latex with Mendeley integration and automatic online backup. Latex will a
 
 ### Install Software
 
-- Install [Mendeley](https://www.mendeley.com) (reference manager)
+- Install [Mendeley 1.18](https://desktop-download.mendeley.com/download/Mendeley-Desktop-1.18-OSX-Universal.dmg) (reference manager)
 - Install Latex. Tested with [MacTeX (Mac)](http://www.tug.org/mactex/) and [MiKTeX (Windows)](https://miktex.org/download)
 - Install [Atom](http://atom.io) (text editor)
   - In Atom, install packages: (Mac: Atom -> Preferences -> Install, Windows: File -> Settings -> Install)
-    - language-latex
-    - autocomplete-latex-cite
+    - [language-latex](https://atom.io/packages/language-latex)
+    - [autocomplete-latex-cite](https://atom.io/packages/autocomplete-latex-cite)
   - Optional Atom packages:
-    - autocomplete-paths
-    - highlight-selected
-    - Zen
-    - typewriter
-    - wordcount or latex-wordcount
+    - [autocomplete-paths](https://atom.io/packages/autocomplete-paths)
+    - [Zen](https://atom.io/packages/Zen)
+    - [typewriter](https://atom.io/packages/typewriter)
+    - [highlight-selected](https://atom.io/packages/highlight-selected)
+    - [wordcount](https://atom.io/packages/wordcount) or [latex-wordcount](https://atom.io/packages/latex-wordcount)
   - It is also recommended to set the theme to One Dark. (Atom/File -> Preferences/Settings -> Themes)
 - Install a pdf viewer. These allow auto-refreshing when the source file is changed.
   - (Mac) Install [Skim](https://skim-app.sourceforge.io/)
-      - Remove the second line from latexmkrc file (once you download this folder below).
       - (Optional) In Skim, CMD-SHIFT-clicking on a word will direct the cursor to that line in Atom. In Skim, set **Preferences -> Sync -> Preset = Atom**.
   - (Windows) Install pdf viewer [Ghostscript](www.ghostscript.com).
-      - Remove the first line from latexmkrc file (once you download this folder below).
+      - Delete file `latexmkrc` and rename `latexmkrc_WIN` to `latexmkrc`
   - (Windows) Install [ActiveState Perl](https://www.activestate.com/products/activeperl/downloads/) or Strawberry Perl. (TODO: to be tested)
 
 
@@ -33,7 +32,7 @@ Set up Latex with Mendeley integration and automatic online backup. Latex will a
 
 If desired, this script will automatically commit changes to a git repository and push to an online repository. This is recommended to maintain a versioned, online backup.
 
-- Install [Git](https://git-scm.com/download).
+- Install [Git](https://git-scm.com/download). This may already be installed on Macs.
   - (Windows) During the Git installation, you must choose the setting 'Git from the command line ... ' on the 'Adjusting your PATH environment' section.
 - Create an account with [Github](https://github.com).
 - Create a new private repository (substituting your Github USERNAME):
